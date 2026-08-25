@@ -1,0 +1,4 @@
+.planner{display:flex;gap:8px;flex-wrap:wrap}
+.day{border:1px solid #ddd;padding:8px;border-radius:6px;width:120px}
+.name{font-weight:600}
+.slot{margin:6px 0}

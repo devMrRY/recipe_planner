@@ -1,0 +1,13 @@
+<!doctype html><html dir="ltr" lang="en"><head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Recipe Planner Demo</title> <script type="module" src="/build/recipe-components.esm.js" data-stencil></script> <script nomodule="" src="/build/recipe-components.js" data-stencil></script> <style>body {
+        margin: 0;
+        background: #f3f4f6;
+      }</style> </head> <body> <recipe-demo></recipe-demo> <script>
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  // auto-unregister service worker during dev mode
+  navigator.serviceWorker.getRegistration().then(function(registration) {
+    if (registration) {
+      registration.unregister().then(function() { location.reload(true) });
+    }
+  });
+}
+</script></body></html>

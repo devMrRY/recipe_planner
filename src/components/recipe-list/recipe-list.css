@@ -1,0 +1,3 @@
+.list{display:flex;flex-direction:column;gap:10px}
+.grid{flex-direction:row;flex-wrap:wrap}
+recipe-card{flex:1 1 240px}

@@ -1,0 +1,45 @@
+.app-shell {
+  font-family: Arial, sans-serif;
+  padding: 24px;
+  background: #f8fafc;
+  color: #1f2937;
+}
+
+header {
+  margin-bottom: 16px;
+}
+
+h1 {
+  margin: 0 0 8px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.toolbar input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+.toolbar button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.detail-panel,
+.planner-panel {
+  margin-top: 24px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+}

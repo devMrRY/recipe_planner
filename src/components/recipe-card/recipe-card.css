@@ -1,0 +1,10 @@
+.card{
+  display:flex;
+  border:1px solid var(--card-border,#e6e6e6);
+  border-radius:6px;
+  overflow:hidden;
+}
+.card img{width:120px;height:120px;object-fit:cover}
+.content{padding:8px;flex:1}
+.actions{margin-top:8px}
+.actions button{margin-right:6px}

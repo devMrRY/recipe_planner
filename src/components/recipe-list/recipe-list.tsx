@@ -10,7 +10,6 @@ export class RecipeList {
   @Prop() layout: 'grid' | 'list' = 'grid';
 
   render() {
-    console.log("this.recipes -----------", this.recipes)
     const clsName = this.layout === 'grid' ? 'list grid' : 'list';
     return (
       <section class={clsName}>

@@ -26,6 +26,10 @@ export namespace Components {
     }
     interface RecipeForm {
         /**
+          * @default []
+         */
+        "categories": CategoryOption[];
+        /**
           * @default {}
          */
         "recipe": any;
@@ -78,6 +82,8 @@ declare global {
     interface HTMLRecipeCardElementEventMap {
         "favorite": string;
         "open": string;
+        "edit": string;
+        "delete": string;
     }
     interface HTMLRecipeCardElement extends Components.RecipeCard, HTMLStencilElement {
         addEventListener<K extends keyof HTMLRecipeCardElementEventMap>(type: K, listener: (this: HTMLRecipeCardElement, ev: RecipeCardCustomEvent<HTMLRecipeCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -162,6 +168,8 @@ declare namespace LocalJSX {
           * @default false
          */
         "compact"?: boolean;
+        "onDelete"?: (event: RecipeCardCustomEvent<string>) => void;
+        "onEdit"?: (event: RecipeCardCustomEvent<string>) => void;
         "onFavorite"?: (event: RecipeCardCustomEvent<string>) => void;
         "onOpen"?: (event: RecipeCardCustomEvent<string>) => void;
         "recipe"?: any;
@@ -174,6 +182,10 @@ declare namespace LocalJSX {
         "recipe"?: any;
     }
     interface RecipeForm {
+        /**
+          * @default []
+         */
+        "categories"?: CategoryOption[];
         "onSave"?: (event: RecipeFormCustomEvent<any>) => void;
         /**
           * @default {}

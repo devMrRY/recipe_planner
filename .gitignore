@@ -5,3 +5,5 @@ build/
 .svelte-kit/
 *.log
 vite.config.ts.timestamp*
+svelte.config.js.timestamp*
+./sveltekit-consumer/node_modules/

@@ -127,8 +127,8 @@ export class RecipeForm {
   private getParentCategories = () =>
     this.categoryOptions.filter((item) => !item.parent_id);
 
-  private getSubcategoryOptions = (categoryValue: string) => {
-    const selectedCategory = this.categoryOptions.find((item) => item.id === categoryValue || item.name === categoryValue);
+  private getSubcategoryOptions = (categoryId: string) => {
+    const selectedCategory = this.categoryOptions.find((item) => item.id === categoryId);
     if (!selectedCategory) return [];
 
     return this.categoryOptions.filter((item) => item.parent_id === selectedCategory.id);
@@ -151,8 +151,8 @@ export class RecipeForm {
       steps: Array.isArray(this.local.steps)
         ? this.local.steps
         : (this.local.steps || '').split('\n').map((item: string) => item.trim()).filter(Boolean),
-      category: this.local.category || 'general',
-      subcategory: this.local.subcategory || 'general',
+      category_id: this.local.category_id,
+      subcategory_id: this.local.subcategory_id ?? null,
       image: this.local.image || 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80'
     };
 
@@ -168,10 +168,10 @@ export class RecipeForm {
       [t.name]: nextValue
     };
 
-    if (t.name === 'category') {
+    if (t.name === 'category_id') {
       const validSubcategories = this.getSubcategoryOptions(nextValue).map((item) => item.id);
-      if (!validSubcategories.includes(this.local.subcategory)) {
-        nextLocal.subcategory = '';
+      if (!validSubcategories.includes(this.local.subcategory_id)) {
+        nextLocal.subcategory_id = '';
       }
     }
 
@@ -180,8 +180,8 @@ export class RecipeForm {
 
   render() {
     const parentCategories = this.getParentCategories();
-    const subcategoryOptions = this.getSubcategoryOptions(this.local.category || '');
-
+    const subcategoryOptions = this.getSubcategoryOptions(this.local.category_id);
+console.log(this.local)
     return (
       <form onSubmit={this.onSubmit} class="form">
         <label>
@@ -191,10 +191,10 @@ export class RecipeForm {
 
         <label>
           Category
-          <select name="category" onChange={this.updateField}>
+          <select name="category_id" onChange={this.updateField}>
             <option value="">Select category</option>
             {parentCategories.map((option) => (
-              <option value={option.id} selected={option.id === (this.local.category || '')}>{option.name}</option>
+              <option value={option.id} selected={option.id === (this.local.category_id)}>{option.name}</option>
             ))}
           </select>
         </label>
@@ -202,13 +202,13 @@ export class RecipeForm {
         <label>
           Subcategory
           <select
-            name="subcategory"
+            name="subcategory_id"
             onChange={this.updateField}
-            disabled={!this.local.category}
+            disabled={!this.local.category_id}
           >
             <option value="">Select subcategory</option>
             {subcategoryOptions.map((option) => (
-              <option value={option.id} selected={option.id === (this.local.subcategory || '')}>{option.name}</option>
+              <option value={option.id} selected={option.id === (this.local.subcategory_id)}>{option.name}</option>
             ))}
           </select>
         </label>

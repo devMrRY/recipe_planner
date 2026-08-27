@@ -11,6 +11,7 @@ export class RecipeList {
 
   render() {
     const clsName = this.layout === 'grid' ? 'list grid' : 'list';
+    console.log(this.recipes, 'recipes in recipe-list');
     return (
       <section class={clsName}>
         {this.recipes.map(r => (

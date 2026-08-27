@@ -14,6 +14,11 @@ export class RecipeCard {
   @Event({ bubbles: true, composed: true }) edit: EventEmitter<string>;
   @Event({ bubbles: true, composed: true }) delete: EventEmitter<string>;
 
+  private getCategoryName = (category: { name?: string; id?: string } | null) => {
+    if (!category) return '';
+    return category.name ?? '';
+  };
+
   private onFavorite = (event: MouseEvent) => {
     event.stopPropagation();
     this.favorite.emit(this.recipe?.id);
@@ -50,14 +55,16 @@ export class RecipeCard {
   render() {
     const title = this.recipe?.title || 'Untitled';
     const img = this.recipe?.image || '';
+    const categoryLabel = this.getCategoryName(this.recipe?.category);
+    const subcategoryLabel = this.recipe?.subcategory ? this.getCategoryName(this.recipe.subcategory) : null;
 
     return (
       <article class="card" onClick={this.onOpen}>
         {img ? <img src={img} alt={title} /> : <div class="image-placeholder">Recipe</div>}
         <div class="content">
           <div class="meta-row">
-            <span class="chip">{this.recipe?.category || 'General'}</span>
-            {this.recipe?.subcategory ? <span class="chip subtle">{this.recipe.subcategory}</span> : null}
+            <span class="chip">{categoryLabel}</span>
+            {subcategoryLabel ? <span class="chip subtle">{subcategoryLabel}</span> : null}
           </div>
           <h3>{title}</h3>
           <div class="actions">

@@ -17,6 +17,10 @@ export namespace Components {
           * @default false
          */
         "compact": boolean;
+        /**
+          * @default false
+         */
+        "isFavorite": boolean;
         "recipe": any;
     }
     interface RecipeDemo {
@@ -35,6 +39,10 @@ export namespace Components {
         "recipe": any;
     }
     interface RecipeList {
+        /**
+          * @default []
+         */
+        "favoriteIds": string[];
         /**
           * @default 'grid'
          */
@@ -168,6 +176,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "compact"?: boolean;
+        /**
+          * @default false
+         */
+        "isFavorite"?: boolean;
         "onDelete"?: (event: RecipeCardCustomEvent<string>) => void;
         "onEdit"?: (event: RecipeCardCustomEvent<string>) => void;
         "onFavorite"?: (event: RecipeCardCustomEvent<string>) => void;
@@ -194,6 +206,10 @@ declare namespace LocalJSX {
     }
     interface RecipeList {
         /**
+          * @default []
+         */
+        "favoriteIds"?: string[];
+        /**
           * @default 'grid'
          */
         "layout"?: 'grid' | 'list';
@@ -209,6 +225,7 @@ declare namespace LocalJSX {
     interface RecipeCardAttributes {
         "recipe": string;
         "compact": boolean;
+        "isFavorite": boolean;
     }
     interface RecipeDetailAttributes {
         "recipe": string;

@@ -23,6 +23,7 @@
 .icon-button{width:32px;height:32px;border:none;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0;font-size:1rem;transition:transform .15s ease, filter .15s ease}
 .icon-button:hover{transform:translateY(-1px);filter:brightness(.98)}
 .icon-button.edit{background:#e0f2fe;color:#0f172a}
-.icon-button.favorite{background:#fee2e2;color:#991b1b}
+.icon-button.favorite{background:#f3f4f6;color:#94a3b8;border:1px solid #e5e7eb}
+.icon-button.favorite.active{background:#fee2e2;color:#e11d48;border-color:#fca5a5;box-shadow:inset 0 0 0 1px rgba(225,29,72,.16)}
 .icon-button.view{background:#e5e7eb;color:#111827}
 .icon-button.delete{background:#fecaca;color:#7f1d1d}

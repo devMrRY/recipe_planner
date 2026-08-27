@@ -181,7 +181,7 @@ export class RecipeForm {
   render() {
     const parentCategories = this.getParentCategories();
     const subcategoryOptions = this.getSubcategoryOptions(this.local.category_id);
-console.log(this.local)
+
     return (
       <form onSubmit={this.onSubmit} class="form">
         <label>

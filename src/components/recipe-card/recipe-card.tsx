@@ -8,6 +8,7 @@ import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
 export class RecipeCard {
   @Prop() recipe: any;
   @Prop() compact: boolean = false;
+  @Prop() isFavorite: boolean = false;
 
   @Event({ bubbles: true, composed: true }) favorite: EventEmitter<string>;
   @Event({ bubbles: true, composed: true }) open: EventEmitter<string>;
@@ -57,6 +58,7 @@ export class RecipeCard {
     const img = this.recipe?.image || '';
     const categoryLabel = this.getCategoryName(this.recipe?.category);
     const subcategoryLabel = this.recipe?.subcategory ? this.getCategoryName(this.recipe.subcategory) : null;
+    const favoriteClass = this.isFavorite ? 'icon-button favorite active' : 'icon-button favorite';
 
     return (
       <article class="card" onClick={this.onOpen}>
@@ -69,7 +71,7 @@ export class RecipeCard {
           <h3>{title}</h3>
           <div class="actions">
             <button type="button" class="icon-button edit" aria-label="Edit recipe" onClick={this.onEdit}>✎</button>
-            <button type="button" class="icon-button favorite" aria-label="Favorite recipe" onClick={this.onFavorite}>♥</button>
+            <button type="button" class={favoriteClass} aria-label="Favorite recipe" aria-pressed={this.isFavorite ? 'true' : 'false'} onClick={this.onFavorite}>♥</button>
             <button type="button" class="icon-button view" aria-label="View recipe" onClick={this.onOpen}>◉</button>
             <button type="button" class="icon-button delete" aria-label="Delete recipe" onClick={this.onDelete}>🗑</button>
           </div>

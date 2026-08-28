@@ -1,4 +1,645 @@
-.planner{display:flex;gap:8px;flex-wrap:wrap}
-.day{border:1px solid #ddd;padding:8px;border-radius:6px;width:120px}
-.name{font-weight:600}
-.slot{margin:6px 0}
+:host {
+  display: block;
+
+  --planner-bg: #f4fbf7;
+  --card-bg: #ffffff;
+
+  --text: #123728;
+  --text-secondary: #4f6f5d;
+  --text-muted: #7a9484;
+
+  --border: #d5e9dc;
+  --border-light: #e9f5ee;
+
+  --primary: #1d8f5f;
+  --primary-dark: #16754d;
+
+  --today-bg: #ecfdf5;
+  --today-border: #34c57a;
+
+  --hover-bg: #f1fff7;
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: var(--text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ================================================= */
+/* Planner */
+/* ================================================= */
+
+.planner {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+
+  padding: 28px 30px 40px;
+
+  background: var(--planner-bg);
+}
+
+/* ================================================= */
+/* Header */
+/* ================================================= */
+
+.planner-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 24px;
+
+  margin-bottom: 20px;
+}
+
+.planner-heading h1 {
+  margin: 0;
+
+  font-size: 27px;
+  line-height: 1.25;
+  font-weight: 700;
+
+  color: var(--text);
+}
+
+.planner-heading p {
+  margin: 7px 0 0;
+
+  font-size: 14px;
+  line-height: 1.5;
+
+  color: var(--text-secondary);
+}
+
+.progress {
+  margin-top: 10px;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  color: var(--primary);
+}
+
+/* ================================================= */
+/* Clear week */
+/* ================================================= */
+
+.clear-week {
+  flex-shrink: 0;
+
+  padding: 11px 22px;
+
+  border: 1px solid #bfe3cf;
+  border-radius: 10px;
+
+  background: white;
+
+  color: var(--primary);
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.clear-week:hover {
+  background: #f3fff7;
+  border-color: #8ad4a8;
+}
+
+/* ================================================= */
+/* Week toolbar */
+/* ================================================= */
+
+.week-toolbar {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 18px;
+}
+
+.week-range {
+  min-width: 180px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 2px;
+
+  text-align: center;
+}
+
+.week-range strong {
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.week-range span {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.week-nav {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--border);
+  border-radius: 9px;
+
+  background: white;
+
+  color: #35614f;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.week-nav:hover {
+  background: var(--hover-bg);
+  border-color: #bbd9c4;
+}
+
+.week-nav svg {
+  width: 18px;
+  height: 18px;
+}
+
+.today-button {
+  height: 38px;
+
+  padding: 0 17px;
+
+  border: 1px solid var(--border);
+  border-radius: 9px;
+
+  background: white;
+
+  color: var(--text);
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.today-button:hover {
+  background: var(--hover-bg);
+}
+
+/* ================================================= */
+/* Days grid */
+/* ================================================= */
+
+.days-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(260px, 1fr));
+
+  gap: 18px;
+
+  align-items: start;
+}
+
+/* ================================================= */
+/* Day card */
+/* ================================================= */
+
+.day-card {
+  overflow: hidden;
+
+  background: var(--card-bg);
+
+  border: 1px solid #dfece2;
+  border-radius: 18px;
+
+  box-shadow:
+    0 2px 5px rgba(29, 143, 95, 0.06);
+
+  transition:
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.day-card:hover {
+  box-shadow:
+    0 5px 14px rgba(29, 143, 95, 0.1);
+}
+
+.day-card.today {
+  border-color: var(--today-border);
+  box-shadow:
+    0 3px 12px rgba(52, 197, 122, 0.12);
+}
+
+/* ================================================= */
+/* Day header */
+/* ================================================= */
+
+.day-header {
+  min-height: 86px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  padding: 17px 19px 15px;
+
+  background: #fafdfb;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.day-card.today .day-header {
+  background: var(--today-bg);
+}
+
+.day-heading {
+  min-width: 0;
+}
+
+.day-heading h2 {
+  margin: 0;
+
+  font-size: 20px;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.date {
+  display: block;
+
+  margin-top: 4px;
+
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.day-status {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+.meal-count {
+  min-width: 44px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 9px;
+
+  border: 1px solid #dfece2;
+  border-radius: 16px;
+
+  background: white;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  color: #3e6653;
+}
+
+.today-badge {
+  height: 23px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 9px;
+
+  border-radius: 12px;
+
+  background: var(--primary);
+
+  color: white;
+
+  font-size: 10px;
+  font-weight: 750;
+
+  letter-spacing: 0.3px;
+}
+
+/* ================================================= */
+/* Day body */
+/* ================================================= */
+
+.day-body {
+  padding: 16px 15px 8px;
+}
+
+/* ================================================= */
+/* Meal slot */
+/* ================================================= */
+
+.meal-slot {
+  margin-bottom: 15px;
+}
+
+.meal-slot:last-child {
+  margin-bottom: 5px;
+}
+
+.meal-label {
+  margin-bottom: 7px;
+
+  font-size: 12px;
+  line-height: 1;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.8px;
+
+  color: #4e7563;
+}
+
+/* ================================================= */
+/* Recipe card */
+/* ================================================= */
+
+.recipe-card {
+  min-height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  padding: 8px 10px;
+
+  border: 1px solid #dfece2;
+  border-radius: 11px;
+
+  background: white;
+}
+
+.recipe-main {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.recipe-image {
+  width: 50px;
+  height: 50px;
+
+  flex-shrink: 0;
+
+  object-fit: cover;
+
+  border-radius: 9px;
+}
+
+.recipe-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #edf9f1;
+
+  color: #417a5f;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.recipe-info {
+  min-width: 0;
+}
+
+.recipe-name {
+  overflow: hidden;
+
+  font-size: 14px;
+  line-height: 1.3;
+
+  font-weight: 650;
+
+  color: #123728;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.recipe-category {
+  margin-top: 5px;
+
+  font-size: 11px;
+  line-height: 1.2;
+
+  color: var(--text-secondary);
+}
+
+/* ================================================= */
+/* Recipe actions */
+/* ================================================= */
+
+.recipe-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 2px;
+
+  flex-shrink: 0;
+}
+
+.action-button {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #567763;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background: #eefaf2;
+  color: #1e5f3f;
+}
+
+.action-button.delete:hover {
+  background: #eefcf4;
+  color: var(--primary);
+}
+
+.action-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ================================================= */
+/* Add recipe */
+/* ================================================= */
+
+.add-recipe {
+  width: 100%;
+  min-height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  border: 1px dashed #b7d9c2;
+  border-radius: 11px;
+
+  background: #ffffff;
+
+  color: #4b7a60;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.add-recipe:hover {
+  border-color: #7ed7a2;
+
+  background: #f2fff7;
+
+  color: var(--primary);
+}
+
+.add-recipe svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* ================================================= */
+/* Day footer */
+/* ================================================= */
+
+.day-footer {
+  padding: 5px 15px 15px;
+}
+
+.clear-day {
+  width: 100%;
+  height: 35px;
+
+  border: 1px solid #c9ddd0;
+  border-radius: 8px;
+
+  background: white;
+
+  color: var(--primary);
+
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.clear-day:hover {
+  background: #f3fff7;
+  border-color: #8bd0a8;
+}
+
+/* ================================================= */
+/* Responsive */
+/* ================================================= */
+
+@media (max-width: 1250px) {
+  .days-grid {
+    grid-template-columns:
+      repeat(3, minmax(260px, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .planner {
+    padding: 22px 18px 30px;
+  }
+
+  .days-grid {
+    grid-template-columns:
+      repeat(2, minmax(250px, 1fr));
+  }
+
+  .planner-header {
+    flex-direction: column;
+  }
+
+  .clear-week {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .planner {
+    padding: 18px 12px 25px;
+  }
+
+  .planner-heading h1 {
+    font-size: 23px;
+  }
+
+  .days-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .week-toolbar {
+    justify-content: center;
+  }
+
+  .week-range {
+    min-width: 145px;
+  }
+
+  .day-card {
+    border-radius: 15px;
+  }
+}

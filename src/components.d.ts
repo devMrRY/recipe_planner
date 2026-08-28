@@ -5,18 +5,51 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { MealPlanItem, MealType } from "./components/meal-planner/meal-planner";
+export { MealPlanItem, MealType } from "./components/meal-planner/meal-planner";
 export namespace Components {
+    interface AppModal {
+        /**
+          * Close when clicking the backdrop.
+          * @default true
+         */
+        "closeOnBackdrop": boolean;
+        /**
+          * Close when pressing Escape.
+          * @default true
+         */
+        "closeOnEscape": boolean;
+        /**
+          * Modal title.
+          * @default ""
+         */
+        "modalTitle": string;
+        /**
+          * Controls whether the modal is visible.
+          * @default false
+         */
+        "open": boolean;
+    }
     interface MealPlanner {
         /**
-          * @default {}
+          * Planned meals.  One recipe per date + mealType.
+          * @default []
          */
-        "plan": any;
+        "mealPlans": MealPlanItem[];
+        /**
+          * Any date within the week.  The component automatically calculates Monday.
+         */
+        "weekStartDate": string;
     }
     interface RecipeCard {
         /**
           * @default false
          */
         "compact": boolean;
+        /**
+          * @default false
+         */
+        "hideActions": boolean;
         /**
           * @default false
          */
@@ -44,6 +77,10 @@ export namespace Components {
          */
         "favoriteIds": string[];
         /**
+          * @default false
+         */
+        "hideActions": boolean;
+        /**
           * @default 'grid'
          */
         "layout": 'grid' | 'list';
@@ -52,6 +89,10 @@ export namespace Components {
          */
         "recipes": any[];
     }
+}
+export interface AppModalCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLAppModalElement;
 }
 export interface MealPlannerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -70,8 +111,35 @@ export interface RecipeFormCustomEvent<T> extends CustomEvent<T> {
     target: HTMLRecipeFormElement;
 }
 declare global {
+    interface HTMLAppModalElementEventMap {
+        "modalClose": void;
+    }
+    interface HTMLAppModalElement extends Components.AppModal, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLAppModalElementEventMap>(type: K, listener: (this: HTMLAppModalElement, ev: AppModalCustomEvent<HTMLAppModalElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLAppModalElementEventMap>(type: K, listener: (this: HTMLAppModalElement, ev: AppModalCustomEvent<HTMLAppModalElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLAppModalElement: {
+        prototype: HTMLAppModalElement;
+        new (): HTMLAppModalElement;
+    };
     interface HTMLMealPlannerElementEventMap {
-        "planChange": any;
+        "addRecipe": {
+    date: string;
+    mealType: MealType;
+  };
+        "editRecipe": MealPlanItem;
+        "deleteRecipe": MealPlanItem;
+        "clearDay": string;
+        "clearWeek": void;
+        "previousWeek": string;
+        "nextWeek": string;
+        "todayClicked": string;
     }
     interface HTMLMealPlannerElement extends Components.MealPlanner, HTMLStencilElement {
         addEventListener<K extends keyof HTMLMealPlannerElementEventMap>(type: K, listener: (this: HTMLMealPlannerElement, ev: MealPlannerCustomEvent<HTMLMealPlannerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -155,6 +223,7 @@ declare global {
         new (): HTMLRecipeListElement;
     };
     interface HTMLElementTagNameMap {
+        "app-modal": HTMLAppModalElement;
         "meal-planner": HTMLMealPlannerElement;
         "recipe-card": HTMLRecipeCardElement;
         "recipe-demo": HTMLRecipeDemoElement;
@@ -164,18 +233,62 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    interface MealPlanner {
-        "onPlanChange"?: (event: MealPlannerCustomEvent<any>) => void;
+    type OneOf<K extends string, PropT, AttrT = PropT> = { [P in K]: PropT } & { [P in `attr:${K}`]?: never } | { [P in `attr:${K}`]: AttrT } & { [P in K]?: never };
+
+    interface AppModal {
         /**
-          * @default {}
+          * Close when clicking the backdrop.
+          * @default true
          */
-        "plan"?: any;
+        "closeOnBackdrop"?: boolean;
+        /**
+          * Close when pressing Escape.
+          * @default true
+         */
+        "closeOnEscape"?: boolean;
+        /**
+          * Modal title.
+          * @default ""
+         */
+        "modalTitle"?: string;
+        "onModalClose"?: (event: AppModalCustomEvent<void>) => void;
+        /**
+          * Controls whether the modal is visible.
+          * @default false
+         */
+        "open"?: boolean;
+    }
+    interface MealPlanner {
+        /**
+          * Planned meals.  One recipe per date + mealType.
+          * @default []
+         */
+        "mealPlans"?: MealPlanItem[];
+        "onAddRecipe"?: (event: MealPlannerCustomEvent<{
+    date: string;
+    mealType: MealType;
+  }>) => void;
+        "onClearDay"?: (event: MealPlannerCustomEvent<string>) => void;
+        "onClearWeek"?: (event: MealPlannerCustomEvent<void>) => void;
+        "onDeleteRecipe"?: (event: MealPlannerCustomEvent<MealPlanItem>) => void;
+        "onEditRecipe"?: (event: MealPlannerCustomEvent<MealPlanItem>) => void;
+        "onNextWeek"?: (event: MealPlannerCustomEvent<string>) => void;
+        "onPreviousWeek"?: (event: MealPlannerCustomEvent<string>) => void;
+        "onTodayClicked"?: (event: MealPlannerCustomEvent<string>) => void;
+        /**
+          * Any date within the week.  The component automatically calculates Monday.
+         */
+        "weekStartDate": string;
     }
     interface RecipeCard {
         /**
           * @default false
          */
         "compact"?: boolean;
+        /**
+          * @default false
+         */
+        "hideActions"?: boolean;
         /**
           * @default false
          */
@@ -210,6 +323,10 @@ declare namespace LocalJSX {
          */
         "favoriteIds"?: string[];
         /**
+          * @default false
+         */
+        "hideActions"?: boolean;
+        /**
           * @default 'grid'
          */
         "layout"?: 'grid' | 'list';
@@ -219,13 +336,20 @@ declare namespace LocalJSX {
         "recipes"?: any[];
     }
 
+    interface AppModalAttributes {
+        "open": boolean;
+        "modalTitle": string;
+        "closeOnBackdrop": boolean;
+        "closeOnEscape": boolean;
+    }
     interface MealPlannerAttributes {
-        "plan": string;
+        "weekStartDate": string;
     }
     interface RecipeCardAttributes {
         "recipe": string;
         "compact": boolean;
         "isFavorite": boolean;
+        "hideActions": boolean;
     }
     interface RecipeDetailAttributes {
         "recipe": string;
@@ -235,10 +359,12 @@ declare namespace LocalJSX {
     }
     interface RecipeListAttributes {
         "layout": 'grid' | 'list';
+        "hideActions": boolean;
     }
 
     interface IntrinsicElements {
-        "meal-planner": Omit<MealPlanner, keyof MealPlannerAttributes> & { [K in keyof MealPlanner & keyof MealPlannerAttributes]?: MealPlanner[K] } & { [K in keyof MealPlanner & keyof MealPlannerAttributes as `attr:${K}`]?: MealPlannerAttributes[K] } & { [K in keyof MealPlanner & keyof MealPlannerAttributes as `prop:${K}`]?: MealPlanner[K] };
+        "app-modal": Omit<AppModal, keyof AppModalAttributes> & { [K in keyof AppModal & keyof AppModalAttributes]?: AppModal[K] } & { [K in keyof AppModal & keyof AppModalAttributes as `attr:${K}`]?: AppModalAttributes[K] } & { [K in keyof AppModal & keyof AppModalAttributes as `prop:${K}`]?: AppModal[K] };
+        "meal-planner": Omit<MealPlanner, keyof MealPlannerAttributes> & { [K in keyof MealPlanner & keyof MealPlannerAttributes]?: MealPlanner[K] } & { [K in keyof MealPlanner & keyof MealPlannerAttributes as `attr:${K}`]?: MealPlannerAttributes[K] } & { [K in keyof MealPlanner & keyof MealPlannerAttributes as `prop:${K}`]?: MealPlanner[K] } & OneOf<"weekStartDate", MealPlanner["weekStartDate"], MealPlannerAttributes["weekStartDate"]>;
         "recipe-card": Omit<RecipeCard, keyof RecipeCardAttributes> & { [K in keyof RecipeCard & keyof RecipeCardAttributes]?: RecipeCard[K] } & { [K in keyof RecipeCard & keyof RecipeCardAttributes as `attr:${K}`]?: RecipeCardAttributes[K] } & { [K in keyof RecipeCard & keyof RecipeCardAttributes as `prop:${K}`]?: RecipeCard[K] };
         "recipe-demo": RecipeDemo;
         "recipe-detail": Omit<RecipeDetail, keyof RecipeDetailAttributes> & { [K in keyof RecipeDetail & keyof RecipeDetailAttributes]?: RecipeDetail[K] } & { [K in keyof RecipeDetail & keyof RecipeDetailAttributes as `attr:${K}`]?: RecipeDetailAttributes[K] } & { [K in keyof RecipeDetail & keyof RecipeDetailAttributes as `prop:${K}`]?: RecipeDetail[K] };
@@ -250,6 +376,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "app-modal": LocalJSX.IntrinsicElements["app-modal"] & JSXBase.HTMLAttributes<HTMLAppModalElement>;
             "meal-planner": LocalJSX.IntrinsicElements["meal-planner"] & JSXBase.HTMLAttributes<HTMLMealPlannerElement>;
             "recipe-card": LocalJSX.IntrinsicElements["recipe-card"] & JSXBase.HTMLAttributes<HTMLRecipeCardElement>;
             "recipe-demo": LocalJSX.IntrinsicElements["recipe-demo"] & JSXBase.HTMLAttributes<HTMLRecipeDemoElement>;

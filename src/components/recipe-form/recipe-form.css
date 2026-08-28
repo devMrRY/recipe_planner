@@ -1,5 +1,5 @@
 .form{display:flex;flex-direction:column;gap:12px}
-.form label{display:flex;flex-direction:column;gap:6px;font-weight:600}
+.form label{display:flex;flex-direction:column;gap:6px;font-weight:400}
 .form input,
 .form textarea,
 .form select{padding:8px 10px;border:1px solid #d0d7de;border-radius:8px;font:inherit;box-sizing:border-box}
@@ -14,6 +14,9 @@
 .remove-button:disabled{opacity:0.55;cursor:not-allowed}
 .ingredient-row{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) auto;gap:10px;align-items:end}
 .field-group{display:flex;flex-direction:column}
-.field-group label{display:flex;flex-direction:column;gap:6px;font-weight:600}
+.field-group label{display:flex;flex-direction:column;gap:6px;font-weight:400}
 .actions{margin-top:8px}
 .actions button{background:#2563eb;color:white}
+.form .error-field{border-color:#dc2626; outline: none;}
+.form .error-message{color:#dc2626;font-size:0.775rem;margin-top:4px; font-weight: lighter;}
+.form .pseudo-error-field{margin-bottom: 25px;}

@@ -57,7 +57,7 @@ export class RecipeDemo {
 
         <div class="planner-panel">
           <h2>Weekly Meal Plan</h2>
-          <meal-planner plan={{ mon: 'Garlic Pasta', tue: 'Mediterranean Salad' }} />
+          <meal-planner weekStartDate="2026-04-06" />
         </div>
       </div>
     );

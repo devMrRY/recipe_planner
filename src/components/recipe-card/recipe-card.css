@@ -9,6 +9,7 @@
   min-height:260px;
   transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
   cursor:pointer;
+  position: relative;
 }
 .card:hover{transform:translateY(-2px); box-shadow:0 14px 28px rgba(15,23,42,.12); border-color:rgba(245,158,11,.45)}
 .card img,
@@ -19,7 +20,7 @@
 .chip{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#fff7ed;color:#a16207;font-size:.7rem;font-weight:700}
 .chip.subtle{background:#eef2ff;color:#4338ca}
 .content h3{margin:0 0 12px;font-size:1.08rem;line-height:1.3;color:#111827}
-.actions{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:8px}
+.actions{display:flex; flex-direction: column; position: absolute; right: 15px; top: 5px; align-items:center;gap:8px;margin-top:auto;padding-top:8px}
 .icon-button{width:32px;height:32px;border:none;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0;font-size:1rem;transition:transform .15s ease, filter .15s ease}
 .icon-button:hover{transform:translateY(-1px);filter:brightness(.98)}
 .icon-button.edit{background:#e0f2fe;color:#0f172a}

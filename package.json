@@ -1,6 +1,6 @@
 {
-  "name": "@recipe-planner/ui",
-  "version": "0.1.0",
+  "name": "@reticentrahul/recipe-planner",
+  "version": "1.0.0",
   "private": false,
   "description": "Stencil web components for recipe planner (cards, lists, forms, meal planner)",
   "main": "dist/index.cjs.js",

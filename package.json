@@ -13,7 +13,10 @@
       "require": "./dist/index.cjs.js",
       "types": "./dist/types/components.d.ts"
     },
-    "./loader": "./loader/index.js"
+    "./loader": {
+      "import": "./loader/index.js",
+      "types": "./loader/index.d.ts"
+    }
   },
   "files": [
     "dist/",

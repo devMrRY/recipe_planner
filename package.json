@@ -1,6 +1,6 @@
 {
   "name": "@reticentrahul/recipe-planner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "Stencil web components for recipe planner (cards, lists, forms, meal planner)",
   "main": "dist/index.cjs.js",
@@ -32,7 +32,12 @@
     "test": "stencil test --spec --e2e",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["stencil", "web-components", "recipes", "recipe-planner"],
+  "keywords": [
+    "stencil",
+    "web-components",
+    "recipes",
+    "recipe-planner"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {

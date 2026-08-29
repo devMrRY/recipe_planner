@@ -14,13 +14,13 @@
       "require": "./dist/index.cjs.js"
     },
     "./loader": {
-      "import": "./loader/index.js",
-      "types": "./loader/index.d.ts"
+      "types": "./dist/loader/index.d.ts",
+      "import": "./dist/loader/index.js",
+      "require": "./dist/loader/index.cjs.js"
     }
   },
   "files": [
-    "dist/",
-    "loader/"
+    "dist/"
   ],
   "publishConfig": {
     "access": "public"

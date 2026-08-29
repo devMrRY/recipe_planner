@@ -9,9 +9,9 @@
   "collection": "dist/collection/collection-manifest.json",
   "exports": {
     ".": {
+      "types": "./dist/types/components.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs.js",
-      "types": "./dist/types/components.d.ts"
+      "require": "./dist/index.cjs.js"
     },
     "./loader": {
       "import": "./loader/index.js",

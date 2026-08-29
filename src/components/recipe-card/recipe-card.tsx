@@ -1,9 +1,16 @@
-import { Component, Prop, Event, EventEmitter, h, Fragment } from '@stencil/core';
+import {
+  Component,
+  Prop,
+  Event,
+  EventEmitter,
+  h,
+  Fragment,
+} from "@stencil/core";
 
 @Component({
-  tag: 'recipe-card',
-  styleUrl: 'recipe-card.css',
-  shadow: true
+  tag: "recipe-card",
+  styleUrl: "recipe-card.css",
+  shadow: true,
 })
 export class RecipeCard {
   @Prop() recipe: any;
@@ -20,9 +27,11 @@ export class RecipeCard {
     return value.charAt(0).toUpperCase() + value.slice(1);
   }
 
-  private getCategoryName = (category: { name?: string; id?: string } | null) => {
-    if (!category) return '';
-    return this.capitalize(category.name?.toString() || '');
+  private getCategoryName = (
+    category: { name?: string; id?: string } | null,
+  ) => {
+    if (!category) return "";
+    return this.capitalize(category.name?.toString() || "");
   };
 
   private onFavorite = (event: MouseEvent) => {
@@ -37,7 +46,7 @@ export class RecipeCard {
 
     this.open.emit(recipeId);
 
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       window.location.href = `/recipes/view/${recipeId}`;
     }
   };
@@ -59,23 +68,84 @@ export class RecipeCard {
   };
 
   render() {
-    const title = this.recipe?.title || 'Untitled';
-    const img = this.recipe?.image || '';
+    const title = this.recipe?.title || "Untitled";
+    const img = this.recipe?.image || "";
     const isOwner = this.recipe?.isOwner || false;
 
     const categoryLabel = this.getCategoryName(this.recipe?.category);
-    const subcategoryLabel = this.recipe?.subcategory ? this.getCategoryName(this.recipe.subcategory) : null;
-    const favoriteClass = this.isFavorite ? 'icon-button favorite active' : 'icon-button favorite';
+    const subcategoryLabel = this.recipe?.subcategory
+      ? this.getCategoryName(this.recipe.subcategory)
+      : null;
+    const favoriteClass = this.isFavorite
+      ? "icon-button favorite active"
+      : "icon-button favorite";
 
     return (
       <article class="card" onClick={this.onOpen}>
-        {img ? <img src={img} alt={title} /> : <div class="image-placeholder">Recipe</div>}
+        {img ? (
+          <img src={img} alt={title} />
+        ) : (
+          <div class="image-placeholder">Recipe</div>
+        )}
         <div class="actions">
-          <button type="button" class={favoriteClass} aria-label="Favorite recipe" aria-pressed={this.isFavorite ? 'true' : 'false'} onClick={this.onFavorite}>♥</button>
+          <button
+            type="button"
+            class={favoriteClass}
+            aria-label="Favorite recipe"
+            aria-pressed={this.isFavorite ? "true" : "false"}
+            onClick={this.onFavorite}
+          >
+            ♥
+          </button>
           {!this.hideActions && isOwner && (
             <>
-              <button type="button" class="icon-button edit" aria-label="Edit recipe" onClick={this.onEdit}>✎</button>
-              <button type="button" class="icon-button delete" aria-label="Delete recipe" onClick={this.onDelete}>🗑</button>
+              <button
+                type="button"
+                class="icon-button edit"
+                aria-label="Edit recipe"
+                onClick={this.onEdit}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M4 20l4.5-1L19 8.5a2.12 2.12 0 0 0-3-3L5.5 16 4 20z" />
+                  <path d="M14.5 6.5l3 3" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                class="icon-button delete"
+                aria-label="Delete recipe"
+                onClick={this.onDelete}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M3 6h18" />
+                  <path d="M8 6V4h8v2" />
+                  <path d="M19 6l-1 14H6L5 6" />
+                  <path d="M10 11v5" />
+                  <path d="M14 11v5" />
+                </svg>
+              </button>
             </>
           )}
         </div>
@@ -83,7 +153,9 @@ export class RecipeCard {
           <h3>{this.capitalize(title)}</h3>
           <div class="meta-row">
             <span class="chip">{categoryLabel}</span>
-            {subcategoryLabel ? <span class="chip subtle">{subcategoryLabel}</span> : null}
+            {subcategoryLabel ? (
+              <span class="chip subtle">{subcategoryLabel}</span>
+            ) : null}
           </div>
         </div>
       </article>

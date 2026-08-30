@@ -15,9 +15,10 @@
 
 ## Events
 
-| Event  | Description | Type               |
-| ------ | ----------- | ------------------ |
-| `save` |             | `CustomEvent<any>` |
+| Event    | Description | Type               |
+| -------- | ----------- | ------------------ |
+| `cancel` |             | `CustomEvent<any>` |
+| `save`   |             | `CustomEvent<any>` |
 
 
 ----------------------------------------------

@@ -29,6 +29,7 @@ export class RecipeForm {
   @Prop() recipe: any = {};
   @Prop() categories: CategoryOption[] = [];
   @Event({ bubbles: true, composed: true }) save: EventEmitter<any>;
+  @Event({ bubbles: true, composed: true }) cancel: EventEmitter<any>;
 
   @State() local: any = {};
   @State() ingredientRows: IngredientRow[] = [];
@@ -206,6 +207,11 @@ export class RecipeForm {
     this.save.emit(payload);
   };
 
+  private handleCancel = (e: Event) => {
+    e.preventDefault();
+    this.cancel.emit();
+  }
+
   private updateField = (e: any) => {
     const t = e.target as
       | HTMLInputElement
@@ -332,7 +338,9 @@ export class RecipeForm {
           )}
         </label>
 
-        <div class="ingredient-block">
+        <div
+          class={`ingredient-block ${this.showError && !this.ingredientRows.some((row) => row.name && row.quantity) ? "error-field" : ""}`}
+        >
           <div class="ingredient-header">
             <span>Ingredients*</span>
             <button
@@ -419,7 +427,10 @@ export class RecipeForm {
         </label>
 
         <div class="actions">
-          <button type="submit">
+          <button class="cancel-button" onClick={this.handleCancel}>
+            Cancel
+          </button>
+          <button type="submit" class="save-button">
             {this.local && this.local.id ? "Update" : "Save"}
           </button>
         </div>

@@ -4,8 +4,8 @@ import {
   Event,
   EventEmitter,
   h,
-  getAssetPath,
 } from "@stencil/core";
+import { getPlaceholderUrl } from "./utils";
 
 @Component({
   tag: "recipe-card",
@@ -79,7 +79,6 @@ export class RecipeCard {
     const favoriteClass = this.isFavorite
       ? "icon-button favorite active"
       : "icon-button favorite";
-
     return (
       <article class="card" onClick={this.onOpen}>
         <img
@@ -88,7 +87,7 @@ export class RecipeCard {
           onError={(event) => {
             const img = event.currentTarget as HTMLImageElement;
             img.onerror = null;
-            img.src = getAssetPath("assets/recipe-placeholder.png");
+            img.src = getPlaceholderUrl();
           }}
         />
         <div class="actions">

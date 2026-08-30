@@ -201,6 +201,7 @@ declare global {
     };
     interface HTMLRecipeFormElementEventMap {
         "save": any;
+        "cancel": any;
     }
     interface HTMLRecipeFormElement extends Components.RecipeForm, HTMLStencilElement {
         addEventListener<K extends keyof HTMLRecipeFormElementEventMap>(type: K, listener: (this: HTMLRecipeFormElement, ev: RecipeFormCustomEvent<HTMLRecipeFormElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -311,6 +312,7 @@ declare namespace LocalJSX {
           * @default []
          */
         "categories"?: CategoryOption[];
+        "onCancel"?: (event: RecipeFormCustomEvent<any>) => void;
         "onSave"?: (event: RecipeFormCustomEvent<any>) => void;
         /**
           * @default {}

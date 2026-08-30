@@ -13,10 +13,29 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs.js"
     },
-    "./loader": {
-      "types": "./loader/index.d.ts",
-      "import": "./loader/index.js",
-      "require": "./loader/index.cjs.js"
+    "./meal-planner": {
+      "types": "./dist/components/meal-planner.d.ts",
+      "import": "./dist/components/meal-planner.js"
+    },
+    "./recipe-list": {
+      "types": "./dist/components/recipe-list.d.ts",
+      "import": "./dist/components/recipe-list.js"
+    },
+    "./recipe-card": {
+      "types": "./dist/components/recipe-card.d.ts",
+      "import": "./dist/components/recipe-card.js"
+    },
+    "./recipe-detail": {
+      "types": "./dist/components/recipe-detail.d.ts",
+      "import": "./dist/components/recipe-detail.js"
+    },
+    "./recipe-form": {
+      "types": "./dist/components/recipe-form.d.ts",
+      "import": "./dist/components/recipe-form.js"
+    },
+    "./app-modal": {
+      "types": "./dist/components/app-modal.d.ts",
+      "import": "./dist/components/app-modal.js"
     }
   },
   "files": [

@@ -154,23 +154,31 @@ export class RecipeForm {
   };
 
   private get isValid() {
-    const isValidIngredients = this.ingredientRows.some(
-      (row) => row.name && row.quantity,
+    const hasCompleteIngredient = this.ingredientRows.some(
+      (row) => row.name.trim() && row.quantity.trim(),
     );
+
+    const hasIncompleteIngredient = this.ingredientRows.some(
+      (row) => Boolean(row.name.trim()) !== Boolean(row.quantity.trim()),
+    );
+
+    const hasSteps = Array.isArray(this.local.steps)
+      ? this.local.steps.some((step: string) => step.trim())
+      : !!this.local.steps?.trim();
+
     return (
-      !this.local.title ||
-      !this.local.category_id ||
-      !this.local.ingredients ||
-      !this.local.steps ||
-      this.local.steps.length === 0 ||
-      !this.local.description ||
-      !isValidIngredients
+      !!this.local.title &&
+      !!this.local.category_id &&
+      !!this.local.description?.trim() &&
+      hasCompleteIngredient &&
+      !hasIncompleteIngredient &&
+      hasSteps
     );
   }
 
   private onSubmit = (e: Event) => {
     e.preventDefault();
-    if (this.isValid) {
+    if (!this.isValid) {
       this.showError = true;
       return;
     }
@@ -332,54 +340,58 @@ export class RecipeForm {
               class="inline-button"
               onClick={this.addIngredientRow}
             >
-              Add item
+              +
             </button>
           </div>
 
-          {this.ingredientRows.map((row, index) => (
-            <div class="ingredient-row" key={index}>
-              <div class="field-group">
-                <input
-                  placeholder="Name"
-                  name={`ingredient-name-${index}`}
-                  value={row.name}
-                  class={`${this.showError && !this.ingredientRows.some((r) => r.name && r.quantity) ? "error-field" : ""}`}
-                  onInput={(event) =>
-                    this.updateIngredientRow(
-                      row.id,
-                      "name",
-                      (event.target as HTMLInputElement).value,
-                    )
-                  }
-                />
-              </div>
+          {this.ingredientRows.map((row, index) => {
+            const rowHasValue = !!(row.name || row.quantity);
+            const rowIsIncomplete = rowHasValue && (!row.name || !row.quantity);
+            return (
+              <div class="ingredient-row" key={index}>
+                <div class="field-group">
+                  <input
+                    placeholder="Name"
+                    name={`ingredient-name-${index}`}
+                    value={row.name}
+                    class={`${this.showError && rowIsIncomplete ? "error-field" : ""}`}
+                    onInput={(event) =>
+                      this.updateIngredientRow(
+                        row.id,
+                        "name",
+                        (event.target as HTMLInputElement).value,
+                      )
+                    }
+                  />
+                </div>
 
-              <div class="field-group">
-                <input
-                  placeholder="Quantity"
-                  value={row.quantity}
-                  name={`ingredient-quantity-${index}`}
-                  class={`${this.showError && !this.ingredientRows.some((r) => r.name && r.quantity) ? "error-field" : ""}`}
-                  onInput={(event) =>
-                    this.updateIngredientRow(
-                      row.id,
-                      "quantity",
-                      (event.target as HTMLInputElement).value,
-                    )
-                  }
-                />
-              </div>
+                <div class="field-group">
+                  <input
+                    placeholder="Quantity"
+                    value={row.quantity}
+                    name={`ingredient-quantity-${index}`}
+                    class={`${this.showError && rowIsIncomplete ? "error-field" : ""}`}
+                    onInput={(event) =>
+                      this.updateIngredientRow(
+                        row.id,
+                        "quantity",
+                        (event.target as HTMLInputElement).value,
+                      )
+                    }
+                  />
+                </div>
 
-              <button
-                type="button"
-                class="remove-button"
-                onClick={() => this.removeIngredientRow(row.id)}
-                disabled={this.ingredientRows.length <= 1}
-              >
-                Remove
-              </button>
-            </div>
-          ))}
+                <button
+                  type="button"
+                  class="remove-button"
+                  onClick={() => this.removeIngredientRow(row.id)}
+                  disabled={this.ingredientRows.length <= 1}
+                >
+                  x
+                </button>
+              </div>
+            );
+          })}
           {this.showError &&
             !this.ingredientRows.some((row) => row.name && row.quantity) && (
               <span class="error-message">

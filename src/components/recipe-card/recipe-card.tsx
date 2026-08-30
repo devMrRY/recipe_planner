@@ -82,22 +82,15 @@ export class RecipeCard {
 
     return (
       <article class="card" onClick={this.onOpen}>
-        {img ? (
-          <img
-            src={img}
-            alt={title}
-            onError={(event) => {
-              const img = event.target as HTMLImageElement;
-              img.src = getAssetPath("assets/recipe-placeholder.png");
-            }}
-          />
-        ) : (
-          <img
-            class="recipe-image"
-            src={getAssetPath("assets/recipe-placeholder.png")}
-            alt="No image available"
-          />
-        )}
+        <img
+          src={img}
+          alt={title}
+          onError={(event) => {
+            const img = event.currentTarget as HTMLImageElement;
+            img.onerror = null;
+            img.src = getAssetPath("assets/recipe-placeholder.png");
+          }}
+        />
         <div class="actions">
           <button
             type="button"

@@ -108,6 +108,11 @@ button {
   border-color: #ea580c;
 }
 
+.clear-week:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* ================================================= */
 /* Week toolbar */
 /* ================================================= */
@@ -194,7 +199,7 @@ button {
   grid-template-columns:
     repeat(4, minmax(260px, 1fr));
   gap: 18px;
-  align-items: start;
+  /* align-items: start; */
 }
 
 /* ================================================= */
@@ -202,6 +207,8 @@ button {
 /* ================================================= */
 
 .day-card {
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   background: var(--card-bg);
   border: 1px solid #f0dfbb;
@@ -302,6 +309,7 @@ button {
 /* ================================================= */
 
 .day-body {
+  flex: 1;
   padding: 16px 15px 8px;
 }
 
@@ -434,7 +442,7 @@ button {
 
 .add-recipe {
   width: 100%;
-  min-height: 58px;
+  min-height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -468,6 +476,7 @@ button {
 /* ================================================= */
 
 .day-footer {
+  margin-top: auto;
   padding: 5px 15px 15px;
 }
 

@@ -1,22 +1,277 @@
-.form{display:flex;flex-direction:column;gap:12px}
-.form label{display:flex;flex-direction:column;gap:6px;font-weight:400}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Labels / field groups */
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* Inputs */
 .form input,
 .form textarea,
-.form select{padding:8px 10px;border:1px solid #d0d7de;border-radius:8px;font:inherit;box-sizing:border-box}
-.form textarea{min-height:100px;resize:vertical}
-.ingredient-block{display:flex;flex-direction:column;gap:10px;border:1px solid #e5e7eb;border-radius:10px;padding:12px;background:#fafafa}
-.ingredient-header{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700}
+.form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+/* Placeholder */
+.form input::placeholder,
+.form textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* Focus */
+.form input:focus,
+.form textarea:focus,
+.form select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgb(245 158 11 / 15%);
+}
+
+/* Hover */
+.form input:hover,
+.form textarea:hover,
+.form select:hover {
+  border-color: #e7c979;
+}
+
+/* Disabled fields */
+.form input:disabled,
+.form textarea:disabled,
+.form select:disabled {
+  background: #faf7ef;
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+/* Textareas */
+.form textarea {
+  min-height: 100px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------
+   Ingredient section
+-------------------------------------------------- */
+
+.ingredient-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  background: #fffdf7;
+}
+
+.ingredient-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--text);
+  font-weight: 600;
+  padding-bottom: 2px;
+}
+
+/* Ingredient rows */
+.ingredient-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+}
+
+/* Field groups */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.field-group label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 400;
+}
+
+/* --------------------------------------------------
+   Buttons
+-------------------------------------------------- */
+
 .inline-button,
 .remove-button,
-.actions button{border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font:inherit}
-.inline-button{background:#e0f2fe;color:#0f172a}
-.remove-button{background:#fee2e2;color:#991b1b}
-.remove-button:disabled{opacity:0.55;cursor:not-allowed}
-.ingredient-row{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) auto;gap:10px;align-items:end}
-.field-group{display:flex;flex-direction:column}
-.field-group label{display:flex;flex-direction:column;gap:6px;font-weight:400}
-.actions{margin-top:8px}
-.actions button{background:#2563eb;color:white}
-.form .error-field{border-color:#dc2626; outline: none;}
-.form .error-message{color:#dc2626;font-size:0.775rem;margin-top:4px; font-weight: lighter;}
-.form .pseudo-error-field{margin-bottom: 25px;}
+.actions button {
+  border: none;
+  border-radius: 8px;
+  padding: 9px 13px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.05s ease;
+}
+
+.inline-button:active,
+.remove-button:active,
+.actions button:active {
+  transform: translateY(1px);
+}
+
+/* Add item */
+.inline-button {
+  background: #fef3c7;
+  color: var(--primary-dark);
+  border: 1px solid #f5d98b;
+}
+
+.inline-button:hover {
+  background: #fde68a;
+  border-color: #f0c95c;
+}
+
+.inline-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgb(245 158 11 / 18%);
+}
+
+/* Remove */
+.remove-button {
+  background: #fff7ed;
+  color: #b45309;
+  border: 1px solid #fed7aa;
+}
+
+.remove-button:hover:not(:disabled) {
+  background: #ffedd5;
+  color: #9a3412;
+  border-color: #fdba74;
+}
+
+.remove-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------
+   Submit
+-------------------------------------------------- */
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+  padding-top: 4px;
+}
+
+.actions button {
+  min-width: 100px;
+  padding: 10px 18px;
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgb(120 53 15 / 12%);
+}
+
+.actions button:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 3px 7px rgb(120 53 15 / 18%);
+}
+
+.actions button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgb(245 158 11 / 20%),
+    0 2px 5px rgb(120 53 15 / 15%);
+}
+
+.actions button:active {
+  box-shadow: none;
+}
+
+/* --------------------------------------------------
+   Validation
+-------------------------------------------------- */
+
+.form .error-field {
+  border-color: #dc2626;
+  background: #fffafa;
+}
+
+.form .error-field:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgb(220 38 38 / 12%);
+}
+
+.form .error-message {
+  color: #b91c1c;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  margin-top: 1px;
+  font-weight: 400;
+}
+
+/*
+ * Keeps the subcategory field aligned when the category
+ * validation message appears.
+ */
+.form .pseudo-error-field {
+  margin-bottom: 25px;
+}
+
+/* --------------------------------------------------
+   Mobile
+-------------------------------------------------- */
+
+@media (max-width: 600px) {
+  .ingredient-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ingredient-row .remove-button {
+    grid-column: 1 / -1;
+    justify-self: flex-start;
+  }
+
+  .ingredient-header {
+    align-items: flex-start;
+  }
+
+  .inline-button {
+    flex-shrink: 0;
+  }
+
+  .actions {
+    justify-content: stretch;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}

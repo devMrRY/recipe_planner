@@ -187,6 +187,11 @@ export class MealPlanner {
     this.clearDay.emit(this.formatDate(date));
   }
 
+  private handleClearWeek = () => {
+    if (this.getTotalPlanned() === 0) return;
+    this.clearWeek.emit();
+  }
+
   // --------------------------------------------------
   // Icons
   // --------------------------------------------------
@@ -395,7 +400,8 @@ export class MealPlanner {
           <button
             type="button"
             class="clear-week"
-            onClick={() => this.clearWeek.emit()}
+            onClick={this.handleClearWeek}
+            disabled={totalPlanned === 0}
           >
             Clear week
           </button>

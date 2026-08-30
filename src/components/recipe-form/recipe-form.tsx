@@ -154,7 +154,9 @@ export class RecipeForm {
   };
 
   private get isValid() {
-    const isValidIngredients = this.ingredientRows.some((row) => row.name && row.quantity);
+    const isValidIngredients = this.ingredientRows.some(
+      (row) => row.name && row.quantity,
+    );
     return (
       !this.local.title ||
       !this.local.category_id ||
@@ -191,9 +193,7 @@ export class RecipeForm {
             .filter(Boolean),
       category_id: this.local.category_id,
       subcategory_id: this.local.subcategory_id ?? null,
-      image:
-        this.local.image ||
-        "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80",
+      image: this.local.image || "",
     };
     this.save.emit(payload);
   };
@@ -278,7 +278,11 @@ export class RecipeForm {
               name="subcategory_id"
               onChange={this.updateField}
               disabled={!this.local.category_id}
-              class={this.showError && !this.local.category_id ? "pseudo-error-field" : ""}
+              class={
+                this.showError && !this.local.category_id
+                  ? "pseudo-error-field"
+                  : ""
+              }
             >
               <option value="">Select subcategory</option>
               {subcategoryOptions.map((option) => (
@@ -334,9 +338,7 @@ export class RecipeForm {
 
           {this.ingredientRows.map((row, index) => (
             <div class="ingredient-row" key={index}>
-              <div
-                class="field-group"
-              >
+              <div class="field-group">
                 <input
                   placeholder="Name"
                   name={`ingredient-name-${index}`}
@@ -352,9 +354,7 @@ export class RecipeForm {
                 />
               </div>
 
-              <div
-                class="field-group"
-              >
+              <div class="field-group">
                 <input
                   placeholder="Quantity"
                   value={row.quantity}

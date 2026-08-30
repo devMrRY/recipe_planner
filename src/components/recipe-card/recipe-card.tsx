@@ -4,6 +4,7 @@ import {
   Event,
   EventEmitter,
   h,
+  getAssetPath,
 } from "@stencil/core";
 
 @Component({
@@ -82,9 +83,20 @@ export class RecipeCard {
     return (
       <article class="card" onClick={this.onOpen}>
         {img ? (
-          <img src={img} alt={title} />
+          <img
+            src={img}
+            alt={title}
+            onError={(event) => {
+              const img = event.target as HTMLImageElement;
+              img.src = getAssetPath("assets/recipe-placeholder.png");
+            }}
+          />
         ) : (
-          <div class="image-placeholder">Recipe</div>
+          <img
+            class="recipe-image"
+            src={getAssetPath("assets/recipe-placeholder.png")}
+            alt="No image available"
+          />
         )}
         <div class="actions">
           <button
@@ -97,7 +109,7 @@ export class RecipeCard {
             ♥
           </button>
           {!this.hideActions && isOwner && (
-            <>
+            <div class="owner-actions">
               <button
                 type="button"
                 class="icon-button edit"
@@ -145,7 +157,7 @@ export class RecipeCard {
                   <path d="M14 11v5" />
                 </svg>
               </button>
-            </>
+            </div>
           )}
         </div>
         <div class="content">

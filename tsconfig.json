@@ -1,20 +1,30 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "module": "ESNext",
-    "lib": ["ES2017", "DOM"],
-    "declaration": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "declaration": false,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "lib": [
+      "dom",
+      "es2022"
+    ],
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "target": "es2022",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "rootDir": "./",
     "jsx": "react",
     "jsxFactory": "h",
-    "jsxFragmentFactory": "Fragment",
-    "types": ["@stencil/core"],
-    "baseUrl": "./",
-    "rootDir": "src"
+    "jsxFragmentFactory": "h.Fragment",
+    "types": [
+      "@stencil/vitest/globals"
+    ]
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

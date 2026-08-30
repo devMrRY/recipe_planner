@@ -1,14 +1,26 @@
-node_modules/
-
 dist/
 www/
-.build/
-build/
+loader/
 
+*~
+*.sw[mnpcod]
 *.log
+*.lock
+*.tmp
+*.tmp.*
+log.txt
+*.sublime-project
+*.sublime-workspace
 
-.env
-.env.*
-!.env.example
-*.tgz
+.stencil/
+.idea/
+.vscode/
+.sass-cache/
+.versions/
+node_modules/
+$RECYCLE.BIN/
+
 .DS_Store
+Thumbs.db
+UserInterfaceState.xcuserstate
+.env

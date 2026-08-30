@@ -5,8 +5,9 @@
   "description": "Stencil web components for recipe planner (cards, lists, forms, meal planner)",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
-  "types": "dist/types/components.d.ts",
+  "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
   "exports": {
     ".": {
       "types": "./dist/types/components.d.ts",
@@ -14,13 +15,14 @@
       "require": "./dist/index.cjs.js"
     },
     "./loader": {
-      "types": "./dist/loader/index.d.ts",
-      "import": "./dist/loader/index.js",
-      "require": "./dist/loader/index.cjs.js"
+      "types": "./loader/index.d.ts",
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs.js"
     }
   },
   "files": [
-    "dist/"
+    "dist/",
+    "loader/"
   ],
   "publishConfig": {
     "access": "public"
@@ -30,7 +32,8 @@
     "clean": "rimraf dist www",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "generate": "stencil generate"
   },
   "keywords": [
     "stencil",
@@ -42,6 +45,11 @@
   "license": "MIT",
   "devDependencies": {
     "@stencil/core": "^4.0.0",
-    "rimraf": "^3.0.0"
+    "rimraf": "^3.0.0",
+    "@stencil/vitest": "^1.8.3",
+    "@types/node": "^22.13.5",
+    "@vitest/browser-playwright": "^4.0.0",
+    "playwright": "^1.52.0",
+    "vitest": "^4.0.0"
   }
 }

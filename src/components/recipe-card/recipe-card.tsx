@@ -4,7 +4,6 @@ import {
   Event,
   EventEmitter,
   h,
-  Fragment,
 } from "@stencil/core";
 
 @Component({

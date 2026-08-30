@@ -1,13 +1,21 @@
-# @recipe-planner/ui
+# @reticentrahul/recipe-planner
 
 Reusable Stencil Web Components for a recipe planner application.
+
+## Published Package
+
+Latest published version: 1.0.7
+
+- npm: https://www.npmjs.com/package/@reticentrahul/recipe-planner
+- GitHub repository: https://github.com/devMrRY/recipe_planner
+- Default branch: master
 
 ## Installation
 
 Install the package from npm:
 
 ```bash
-npm install @recipe-planner/ui
+npm install @reticentrahul/recipe-planner
 ```
 
 ## Components
@@ -19,7 +27,7 @@ This package provides the following custom elements:
 - `recipe-detail` — Displays detailed recipe information
 - `recipe-form` — Create and edit recipes
 - `meal-planner` — Create and manage weekly meal plans
-- `modal` — Reusable modal/dialog component
+- `app-modal` — Reusable modal/dialog component
 
 ## Using with SvelteKit
 
@@ -31,7 +39,7 @@ Initialize the Stencil components on the client using `onMount`:
 
   onMount(async () => {
     const { defineCustomElements } =
-      await import('@recipe-planner/ui/loader');
+      await import('@reticentrahul/recipe-planner/loader');
 
     defineCustomElements();
   });
@@ -51,7 +59,7 @@ After initialization, the components can be used directly:
 
 <meal-planner />
 
-<modal />
+<app-modal />
 ```
 
 ## Passing Data
@@ -151,7 +159,7 @@ Example:
 />
 ```
 
-### `modal`
+### `app-modal`
 
 Reusable modal/dialog component for forms, confirmations, and other content.
 
@@ -186,7 +194,13 @@ npm test
 The package is published as a public scoped npm package:
 
 ```text
-@recipe-planner/ui
+@reticentrahul/recipe-planner
+```
+
+Latest published version:
+
+```text
+1.0.7
 ```
 
 Create a production build before publishing:
@@ -195,10 +209,15 @@ Create a production build before publishing:
 npm run build
 ```
 
-The package is configured to automatically build before publishing.
-
-Publish the package:
+Publish a new package version:
 
 ```bash
 npm publish
 ```
+
+## Deployment / Repository
+
+This Stencil package is maintained in the following repository:
+
+- GitHub: https://github.com/devMrRY/recipe_planner
+- Branch: master
